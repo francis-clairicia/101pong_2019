@@ -1,0 +1,33 @@
+#! /bin/python3
+# -*- coding: Utf-8 -*
+
+import sys
+
+argv = sys.argv
+def print_usage():
+    print("USAGE")
+    print("\t./101pong x0 y0 z0 x1 y1 z1 n\n")
+    print("DESCRIPTION")
+    print("\tx0  ball abscissa at time t - 1")
+    print("\tx0  ball abscissa at time t - 1")
+    print("\tx0  ball abscissa at time t - 1")
+    print("\tx1  ball abscissa at time t")
+    print("\tx1  ball abscissa at time t")
+    print("\tx1  ball abscissa at time t")
+    print("\tn   time shift (greater than or equal to 0)")
+    exit(84)
+
+def check_error():
+    if (len(argv) != 8):
+        print_usage()
+    for i in range(1, 8):
+        try:
+            float(argv[i])
+        except ValueError:
+            print_usage()
+        else:
+            pass
+
+check_error()
+
+exit(0)
