@@ -2,10 +2,9 @@
 # -*- coding: Utf-8 -*
 
 import sys
+from math import sqrt, pow, acos, degrees
 
 argv = sys.argv
-m0 = list()
-m1 = list()
 
 def print_usage():
     print("USAGE")
@@ -31,19 +30,43 @@ def check_error():
         else:
             pass
 
-def convert_args():
-    global time, m0, m1
+def convert_args(argv):
+    m0 = list()
+    m1 = list()
     for loop in range(1, 4) :
         m0.append(float(argv[loop]))
     for loop in range(4, 7) :
         m1.append(float(argv[loop]))
     time = int(argv[7])
+    return m0, m1, time
 
-def calcul_velocity_vector():
-    pass
+def calcul_velocity_vector(m0, m1):
+    velocity = list()
+    for i in range(3):
+        velocity.append(m1[i] - m0[i])
+    return velocity
+
+def determine_angle(velocity):
+    Oz_vector = [0, 0, -1]
+    u = Oz_vector
+    v = velocity
+    vector_product = 0
+    for i in range(3):
+        vector_product += u[i] * v[i]
+    u_norm = sqrt(pow(u[0], 2) + pow(u[1], 2) + pow(u[2], 2))
+    v_norm = sqrt(pow(v[0], 2) + pow(v[1], 2) + pow(v[2], 2))
+    angle = acos(vector_product / (u_norm * v_norm))
+    return degrees(angle)
+
+#Error handling
 check_error()
-convert_args()
-print(m0)
-print(m1)
-print(time)
+
+#Calculating velocity vector
+m0, m1, time = convert_args(argv)
+velocity = calcul_velocity_vector(m0, m1)
+
+#Determine angle of incidence
+angle = determine_angle(velocity)
+print(angle)
+
 exit(0)
