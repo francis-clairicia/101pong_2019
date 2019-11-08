@@ -46,17 +46,23 @@ def calcul_velocity_vector(m0, m1):
         velocity.append(m1[i] - m0[i])
     return velocity
 
+def calcul_coordonates(m0, time, velocity):
+    coord = list()
+    for i in range(3):
+        coord.append(m0[i] + time * velocity[i])
+    return coord
+
 def determine_angle(velocity):
-    Oz_vector = [0, 0, -1]
+    Oz_vector = [0, 0, 1]
     u = Oz_vector
     v = velocity
-    vector_product = 0
+    vector_product = 0.0
     for i in range(3):
         vector_product += u[i] * v[i]
     u_norm = sqrt(pow(u[0], 2) + pow(u[1], 2) + pow(u[2], 2))
     v_norm = sqrt(pow(v[0], 2) + pow(v[1], 2) + pow(v[2], 2))
-    angle = acos(vector_product / (u_norm * v_norm))
-    return degrees(angle)
+    angle = degrees(acos(vector_product / (u_norm * v_norm)))
+    return (angle - 90)
 
 #Error handling
 check_error()
@@ -64,9 +70,16 @@ check_error()
 #Calculating velocity vector
 m0, m1, time = convert_args(argv)
 velocity = calcul_velocity_vector(m0, m1)
+print("the velocity vector of the ball is:")
+print("(", velocity[0], ",", velocity[1], ",", velocity[2], ")")
+
+#Calculating coordonates at time n
+coord = calcul_coordonates(m0, time, velocity)
+print("at time t +", time, "ball coordinates will be:")
+print("(", coord[0], ",", coord[1], ",", coord[2], ")")
 
 #Determine angle of incidence
 angle = determine_angle(velocity)
-print(angle)
-
+print("The incidence angle is:")
+print(angle, "degrees")
 exit(0)
