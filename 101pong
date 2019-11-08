@@ -46,10 +46,11 @@ def calcul_velocity_vector(m0, m1):
         velocity.append(m1[i] - m0[i])
     return velocity
 
-def calcul_coordonates(m0, time, velocity):
+def calcul_coordonates(m1, time, velocity):
     coord = list()
     for i in range(3):
-        coord.append(m0[i] + (time * velocity[i]))
+        coord.append(m1[i] + (time * velocity[i]))
+        print(coord)
     return coord
 
 def determine_angle(velocity):
@@ -74,12 +75,15 @@ print("the velocity vector of the ball is:")
 print("(", velocity[0], ", ", velocity[1], ", ", velocity[2], ")", sep='')
 
 #Calculating coordonates at time n
-coord = calcul_coordonates(m0, time, velocity)
+coord = calcul_coordonates(m1, time, velocity)
 print("at time t +", time, "ball coordinates will be:")
 print("(", coord[0], ", ", coord[1], ", ", coord[2], ")", sep='')
 
 #Determine angle of incidence
-angle = determine_angle(velocity)
-print("The incidence angle is:")
-print(angle, "degrees")
+if ((m1[2] > 0.0 and velocity[2] < 0.0) or (m1[2] < 0.0 and velocity[2] > 0.0)):
+    angle = determine_angle(velocity)
+    print("The incidence angle is:")
+    print(angle, "degrees")
+else:
+    print("The ball won't reach the paddle.")
 exit(0)
