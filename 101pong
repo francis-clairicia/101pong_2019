@@ -27,8 +27,8 @@ def check_error():
             float(argv[i])
         except ValueError:
             print_usage()
-        else:
-            pass
+    if ("." in argv[7] or float(argv[7]) < 0):
+        print_usage()
 
 def convert_args(argv):
     m0 = list()
@@ -50,7 +50,6 @@ def calcul_coordonates(m1, time, velocity):
     coord = list()
     for i in range(3):
         coord.append(m1[i] + (time * velocity[i]))
-        print(coord)
     return coord
 
 def determine_angle(velocity):
@@ -63,7 +62,7 @@ def determine_angle(velocity):
     u_norm = sqrt(pow(u[0], 2) + pow(u[1], 2) + pow(u[2], 2))
     v_norm = sqrt(pow(v[0], 2) + pow(v[1], 2) + pow(v[2], 2))
     angle = degrees(acos(vector_product / (u_norm * v_norm)))
-    return (angle - 90)
+    return abs(angle - 90)
 
 #Error handling
 check_error()
@@ -71,19 +70,19 @@ check_error()
 #Calculating velocity vector
 m0, m1, time = convert_args(argv)
 velocity = calcul_velocity_vector(m0, m1)
-print("the velocity vector of the ball is:")
-print("(", velocity[0], ", ", velocity[1], ", ", velocity[2], ")", sep='')
+print("The velocity vector of the ball is:")
+print("({0:.2f}, {1:.2f}, {2:.2f})".format(velocity[0], velocity[1], velocity[2]))
 
 #Calculating coordonates at time n
 coord = calcul_coordonates(m1, time, velocity)
-print("at time t +", time, "ball coordinates will be:")
-print("(", coord[0], ", ", coord[1], ", ", coord[2], ")", sep='')
+print("At time t +", time, "ball coordinates will be:")
+print("({0:.2f}, {1:.2f}, {2:.2f})".format(coord[0], coord[1], coord[2]))
 
 #Determine angle of incidence
 if ((m1[2] > 0.0 and velocity[2] < 0.0) or (m1[2] < 0.0 and velocity[2] > 0.0)):
     angle = determine_angle(velocity)
     print("The incidence angle is:")
-    print(angle, "degrees")
+    print("{0:.2f} degrees".format(angle))
 else:
     print("The ball won't reach the paddle.")
 exit(0)
