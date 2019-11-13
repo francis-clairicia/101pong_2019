@@ -75,7 +75,7 @@ print("({0:.2f}, {1:.2f}, {2:.2f})".format(velocity[0], velocity[1], velocity[2]
 
 #Calculating coordonates at time n
 coord = calcul_coordonates(m1, time, velocity)
-print("At time t +", time, "ball coordinates will be:")
+print("At time t +", time, ", ball coordinates will be:")
 print("({0:.2f}, {1:.2f}, {2:.2f})".format(coord[0], coord[1], coord[2]))
 
 #Determine angle of incidence
@@ -83,6 +83,9 @@ if ((m1[2] > 0.0 and velocity[2] < 0.0) or (m1[2] < 0.0 and velocity[2] > 0.0)):
     angle = determine_angle(velocity)
     print("The incidence angle is:")
     print("{0:.2f} degrees".format(angle))
+elif ((m1[2] == 0.0) and (velocity[2] == 0)):
+    print("The incidence angle is:")
+    print("0.00 degrees")
 else:
     print("The ball won't reach the paddle.")
 exit(0)
