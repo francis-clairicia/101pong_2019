@@ -75,7 +75,7 @@ print("({0:.2f}, {1:.2f}, {2:.2f})".format(velocity[0], velocity[1], velocity[2]
 
 #Calculating coordonates at time n
 coord = calcul_coordonates(m1, time, velocity)
-print("At time t +", time, ", ball coordinates will be:")
+print("At time t + {0}, ball coordinates will be:".format(time))
 print("({0:.2f}, {1:.2f}, {2:.2f})".format(coord[0], coord[1], coord[2]))
 
 #Determine angle of incidence
