@@ -15,27 +15,41 @@ class Ball(pygame.sprite.Sprite):
         self.rect = self.image.get_rect(**kwargs)
         pygame.draw.circle(self.image, color, circle_center, radius)
         self.mask = pygame.mask.from_surface(self.image)
-        self.move_speed = 1
+        self.move_speed = 3
         self.direction = {"x":random.choice([-2, 2]),
                           "y":random.choice([-2, -1, 1, 2])}
 
     def draw(self, surface):
         surface.blit(self.image, self.rect)
 
-    def move(self, screen, score):
-        self.rect = self.rect.move(self.direction["x"] + self.move_speed,
-                                   self.direction["y"] + self.move_speed)
-        if self.rect.top <= screen.top or self.rect.bottom >= screen.bottom:
-            self.invert_axis("y")
-        if (self.rect.left <= screen.left) or (self.rect.right >= screen.right):
-            self.invert_axis("x")
-            if self.rect.right >= screen.right:
-                score[1] += 1
-            if self.rect.left <= screen.top:
-                score[2] += 1
+    def move(self):
+        move_x = self.direction["x"] * self.move_speed
+        move_y = self.direction["y"] * self.move_speed
+        self.rect = self.rect.move(move_x, move_y)
 
     def invert_axis(self, axis):
         self.direction[axis] = -self.direction[axis]
 
-    def increase_speed(self):
-        self.move_speed += 0.5
+    @property
+    def top(self):
+        return self.rect.top
+
+    @property
+    def bottom(self):
+        return self.rect.bottom
+
+    @property
+    def left(self):
+        return self.rect.left
+
+    @property
+    def right(self):
+        return self.rect.right
+
+    @property
+    def centerx(self):
+        return self.rect.centerx
+
+    @property
+    def centery(self):
+        return self.rect.centery

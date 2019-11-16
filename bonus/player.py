@@ -28,3 +28,27 @@ class Player(pygame.sprite.Sprite):
             self.rect = self.rect.move(0, 6)
         self.rect.top = screen.top if self.rect.top < screen.top else self.rect.top
         self.rect.bottom = screen.bottom if self.rect.bottom > screen.bottom else self.rect.bottom
+
+    @property
+    def top(self):
+        return self.rect.top
+
+    @property
+    def bottom(self):
+        return self.rect.bottom
+
+    @property
+    def left(self):
+        return self.rect.left
+
+    @property
+    def right(self):
+        return self.rect.right
+
+    @property
+    def centerx(self):
+        return self.rect.centerx
+
+    @property
+    def centery(self):
+        return self.rect.centery
